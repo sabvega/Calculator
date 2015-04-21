@@ -1,0 +1,390 @@
+import javax.swing.*; //imports all things in swing
+import java.awt.*; //imports all things in awt
+import java.awt.event.*;
+import java.lang.Math;
+import java.awt.Font;
+import java.lang.String;
+
+/**
+ * Interation portion of my calculator
+ * 
+ * @author Sabrina Vega
+ * @version (a version number or a date)
+ */
+
+
+
+public class CalcPanel extends JPanel implements ActionListener //calcpanel is a jpanel now
+{
+    //fields or data
+        JTextField display;
+        
+        JButton b1;
+        
+        JButton b2;
+        JButton b3;
+        JButton b4;
+        JButton b5;
+        JButton b6;
+        JButton b7;
+        JButton b8;
+        JButton b9;
+        JButton bZero;
+        JButton bDecimal;
+        JButton bEqual;
+        JButton bPlus;
+        JButton bMinus;
+        JButton bMultiply;
+        JButton bDivide;
+        JButton bClear;
+        JButton bNegative;
+        JButton bSqrt;
+        JButton bSin;
+        JButton bCos;
+        JButton bTan;
+        
+       
+        
+        String num1;
+        String num2;
+        
+        String operation;
+        
+        
+        boolean isFirstNum; 
+        boolean isFirstDec;
+        boolean isPos;
+        
+    //constructors
+    public CalcPanel()
+    {
+       this.setBackground(Color.white); //sets background to white
+       this.setLayout(null); //passing in no object, allows to move components at whim
+       
+       //make the components
+       display = new JTextField();
+       display.setBackground(new Color(182,102,255));
+       display.setFont(new Font("Monospaced", Font.PLAIN, 15));
+       
+       b1 = new JButton("1");
+       b1.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b2 = new JButton("2");
+       b2.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b3 = new JButton("3");
+       b3.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b4 = new JButton("4");
+       b4.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b5 = new JButton("5");
+       b5.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b6 = new JButton("6");
+       b6.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b7 = new JButton("7");
+       b7.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b8 = new JButton("8");
+       b8.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       b9 = new JButton("9");
+       b9.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       bZero = new JButton("0");
+       bZero.setFont(new Font("Monospaced", Font.PLAIN, 20));
+       bDecimal = new JButton(".");
+       bDecimal.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bEqual = new JButton("=");
+       bEqual.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bPlus = new JButton("+");
+       bPlus.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bMinus = new JButton("-");
+       bMinus.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bMultiply = new JButton("x");
+       bMultiply.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bDivide = new JButton("/");
+       bDivide.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bClear= new JButton("clear");
+       bClear.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bNegative= new JButton ("(-)");
+       bNegative.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bSqrt= new JButton("sqrt");
+       bSqrt.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bSin= new JButton("sin");
+       bSin.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bCos = new JButton("cos");
+       bCos.setFont(new Font("Monospaced", Font.BOLD, 20));
+       bTan= new JButton("tan");
+       bTan.setFont(new Font("Monospaced", Font.BOLD, 20));
+       
+       num1=("");
+       num2=("");
+       
+       
+       
+       operation= "";
+       
+       
+       isFirstDec=true;
+       isFirstNum= true;
+       isPos=true;
+       
+       
+       //set position and size of components
+       display.setBounds(0,0,200, 50); //sets position to 0,0 and width to 200, height to 50
+       b1.setBounds(0,150,50,50); 
+       b2.setBounds(50,150,50,50);
+       b3.setBounds(100,150,50,50);
+       b4.setBounds(0,200,50,50);
+       b5.setBounds(50,200,50,50);
+       b6.setBounds(100,200,50,50);
+       b7.setBounds(0,250,50,50);
+       b8.setBounds(50,250,50,50);
+       b9.setBounds(100,250,50,50);
+       bZero.setBounds(0, 300,50,50);
+       bDecimal.setBounds(50, 300,50,50);
+       bEqual.setBounds(100, 300,50,50);
+       bPlus.setBounds(150, 300,50,50);
+       bMinus.setBounds(150, 250,50,50);
+       bMultiply.setBounds(150, 200,50,50);
+       bDivide.setBounds(150, 150,50,50);
+       bClear.setBounds(0,100,100,50);
+       bNegative.setBounds(100,100,50,50);
+       bSqrt.setBounds(150,100,75,50);
+       bSin.setBounds(200,150,75,50);
+       bCos.setBounds(200,200,75,50);
+       bTan.setBounds(200,250,75,50);
+       
+       //add the components to the CalcPanel
+       this.add(display); //adding the buttons to the panel so now the panel knows about the buttons
+       this.add(b1);
+       this.add(b2);
+       this.add(b3);
+       this.add(b4);
+       this.add(b5);
+       this.add(b6);
+       this.add(b7);
+       this.add(b8);
+       this.add(b9);
+       this.add(bZero);
+       this.add(bDecimal);
+       this.add(bEqual);
+       this.add(bPlus);
+       this.add(bMinus);
+       this.add(bMultiply);
+       this.add(bDivide);
+       this.add(bClear);
+       this.add(bNegative);
+       this.add(bSqrt);
+       this.add(bSin);
+       this.add(bCos);
+       this.add(bTan);
+       
+       b1.addActionListener(this); //sets up a two way connection between panel and button
+       b2.addActionListener(this);
+       b3.addActionListener(this);
+       b4.addActionListener(this);
+       b5.addActionListener(this);
+       b6.addActionListener(this);
+       b7.addActionListener(this);
+       b8.addActionListener(this);
+       b9.addActionListener(this);
+       bZero.addActionListener(this);
+       bDecimal.addActionListener(this);
+       bEqual.addActionListener(this);
+       bPlus.addActionListener(this);
+       bMinus.addActionListener(this);
+       bMultiply.addActionListener(this);
+       bDivide.addActionListener(this);
+       bClear.addActionListener(this);
+       bNegative.addActionListener(this);
+       bSqrt.addActionListener(this);
+       bSin.addActionListener(this);
+       bCos.addActionListener(this);
+       bTan.addActionListener(this);
+       
+    }
+    //additional methods or behavior
+   
+   
+   public void actionPerformed(ActionEvent ae)
+   {
+       String action = ae.getActionCommand();
+       
+       if(action.equals("1") || action.equals("2") || action.equals("3") || action.equals("4") || action.equals("5") || 
+       action.equals("6") || action.equals("7") || action.equals("8") || action.equals("9") || action.equals("0"))
+       {
+          
+       if(isFirstNum)
+       {   num1 = num1 + action;
+           display.setText(num1);
+           
+       }
+       if(!isFirstNum)
+       {
+           num2 = num2 + action;
+           display.setText(num2);
+       }
+     }
+   
+     if(action.equals("+") || action.equals("-") || action.equals("/") || action.equals("x") )
+     {
+         isFirstNum=false;
+        isFirstDec=true;
+         operation=action;
+        }
+   
+        if(action.equals("="))
+        {
+       double num1Double= Double.parseDouble(num1);
+       double num2Double= Double.parseDouble(num2);
+       switch(operation)
+       {
+           case"+":
+           display.setText((num1Double+num2Double)+"");
+           break;
+           case"-":
+           display.setText((num1Double-num2Double)+"");
+           break;
+           case"/":
+           display.setText((num1Double/num2Double)+"");
+           break;
+           case"x":
+           display.setText((num1Double*num2Double)+"");
+           break;
+           
+           
+       }
+       
+     }
+     
+     if(action.equals("clear"))
+     {
+       isFirstNum= true;
+       isFirstDec=true;
+       
+       num1="";
+       num2="";
+       operation="";
+       display.setText("");
+       
+     }
+     
+     if(action.equals("."))
+     {
+        if(isFirstDec && isFirstNum)
+         {
+             num1=num1+action;
+             display.setText(num1);
+             isFirstDec= false;
+         }
+        if(isFirstDec && !isFirstNum)
+        {
+            num2= num2+action;
+            display.setText(num2);
+            
+        }
+        }
+        
+        
+     if(action.equals("(-)"))        
+        {
+          if(isFirstNum)
+          {
+            double num1Double= Double.parseDouble(num1);
+            if(num1Double !=0)
+            {
+              num1Double *= -1;
+              num1= Double.toString(num1Double);
+              display.setText(num1);
+          
+            }
+        }
+        if(!isFirstNum)
+        {
+            double num2Double= Double.parseDouble(num2);
+          if(num2Double !=0)
+          {
+             num2Double *= -1;
+             num2= Double.toString(num2Double);
+             display.setText(num2);
+          }
+        }
+    }
+      
+    if(action.equals("sqrt"))
+    {
+        if(isFirstNum)
+        {
+              double num1Double= Double.parseDouble(num1);
+              num1Double= Math.sqrt(num1Double);
+              num1= Double.toString(num1Double);
+              display.setText(num1);
+            }
+         if(!isFirstNum)
+        {
+            double num2Double= Double.parseDouble(num2);
+             num2Double= Math.sqrt(num2Double);
+             num2= Double.toString(num2Double);
+             display.setText(num2);
+          
+        }
+    }
+    
+    if(action.equals("sin"))
+    {
+        if(isFirstNum)
+        {
+              double num1Double= Double.parseDouble(num1);
+              num1Double= Math.sin(num1Double);
+              num1= Double.toString(num1Double);
+              display.setText(num1);
+            }
+         if(!isFirstNum)
+        {
+            double num2Double= Double.parseDouble(num2);
+             num2Double= Math.sin(num2Double);
+             num2= Double.toString(num2Double);
+             display.setText(num2);
+          
+        }
+    }
+    
+    if(action.equals("cos"))
+    {
+        if(isFirstNum)
+        {
+              double num1Double= Double.parseDouble(num1);
+              num1Double= Math.cos(num1Double);
+              num1= Double.toString(num1Double);
+              display.setText(num1);
+            }
+         if(!isFirstNum)
+        {
+            double num2Double= Double.parseDouble(num2);
+             num2Double= Math.cos(num2Double);
+             num2= Double.toString(num2Double);
+             display.setText(num2);
+          
+        }
+    }
+    
+    if(action.equals("tan"))
+    {
+        if(isFirstNum)
+        {
+              double num1Double= Double.parseDouble(num1);
+              num1Double= Math.tan(num1Double);
+              num1= Double.toString(num1Double);
+              display.setText(num1);
+            }
+         if(!isFirstNum)
+        {
+            double num2Double= Double.parseDouble(num2);
+             num2Double= Math.tan(num2Double);
+             num2= Double.toString(num2Double);
+             display.setText(num2);
+          
+        }
+    }
+
+     
+    }
+    
+
+     }
+   
