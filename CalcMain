@@ -1,0 +1,38 @@
+import javax.swing.JFrame; //imports the JFRame
+import javax.swing.JPanel;
+
+import java.awt.Container;
+import java.awt.Color;
+import java.awt.Font;
+/**
+ * The main class for Calculator interface.
+ * 
+ * @author Sabrina Vega
+ * @version 1.0
+ */
+public class CalcMain
+{
+    
+   public static void main(String[] args)
+   {
+       
+       JFrame theGUI = new JFrame();
+       theGUI.setTitle("Gr8 Calculator"); //puts a name on the window 
+       theGUI.setSize(300,400); //sets the width to 250 and height to 350
+       //theGUI.setBackground(Color.black); //????????WHY DONT YOU WORK UGH
+      
+
+       Container pane = theGUI.getContentPane(); 
+       JPanel myPanel = new CalcPanel(); //creates a JPanel 
+        myPanel.setBackground(new Color(255,136,121)); 
+        
+        
+      
+       pane.add(myPanel);
+       
+         theGUI.setVisible(true);
+      //makes the window visible 
+      
+   }
+
+}
